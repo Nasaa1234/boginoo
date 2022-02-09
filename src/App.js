@@ -18,6 +18,7 @@ import { AuthProvider } from './boginoo/provider/context';
 import LinkPage from './boginoo/desktop';
 import Data from './boginoo/edit/app';
 import Redirect from './boginoo/redirect';
+import Typical from './typical/typical';
 
 function App() {
   const [wait, setWait] = useState(false)
@@ -25,17 +26,18 @@ function App() {
     setWait(true)
   }, 1000)
 
-  return <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path='/' exact element={wait ?  <LinkPage /> : <Loading />} />
-          <Route path='login' element={wait ? <LoginPage /> :  <Loading />} />
-          <Route path='signup' element={wait ?  <SignupPage /> : <Loading />} />
-          <Route path='restart' element={ wait ? <RestartPage /> : <Loading />} />
-          <Route path='*' element={<Redirect />} />
-        </Routes>
-      </Router>
-  </AuthProvider>
+  // return <AuthProvider>
+  //     <Router>
+  //       <Routes>
+  //         <Route path='/' exact element={wait ?  <LinkPage /> : <Loading />} />
+  //         <Route path='login' element={wait ? <LoginPage /> :  <Loading />} />
+  //         <Route path='signup' element={wait ?  <SignupPage /> : <Loading />} />
+  //         <Route path='restart' element={ wait ? <RestartPage /> : <Loading />} />
+  //         <Route path='*' element={<Redirect />} />
+  //       </Routes>
+  //     </Router>
+  // </AuthProvider>
+  return <Typical />
 }
 
 export default App;

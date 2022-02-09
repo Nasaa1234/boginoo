@@ -21,11 +21,19 @@ const Text = styled.div`
     color:#02B589;
     font-size: 25px;
     line-height: 23px;
-    margin-top:${props => props.top ? '10px' : '4%'}
+    margin-top:${props => props.top ? '10px' : '50px'}
 `
 
 const Color = styled.div`
-    color:red;
+    color:${props => {
+        if (props.red) {
+            return 'red';
+        } else {
+            return '#02B589'
+        }
+    }
+    }};
+
 `
 const Fontsize = styled.div`
     'md' : '1rem',      // 16px
@@ -48,6 +56,7 @@ const Desktop = styled.div`
 `
 
 const Row = styled.div`
+
     display:flex;
     flex-direction:row;
     justify-content:space-between;
@@ -81,7 +90,7 @@ const Center = styled.div`
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    padding-top:${props => props.Login ? '5' : '2'}%;
+    padding-top:${props => props.Login ? '100' : '40'}px;
 `
 
 
@@ -109,7 +118,6 @@ const Opacity = styled.div`
 
 const Pos = styled.div`
     position:fixed;
-    top:940px;
     bottom:0;
 `
 const breatheAnimation = keyframes`

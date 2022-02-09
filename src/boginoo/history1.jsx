@@ -10,7 +10,10 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import symbol from './x.svg'
 import { useCollection } from './firebase';
 import { useAuthContext } from './provider/context';
-import {Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import copy1 from './copy.svg';
+;
+
 const History1 = ({ long, short }) => {
     const { login, signUp, signOut, user, userCorrect } = useAuthContext()
 
@@ -20,7 +23,7 @@ const History1 = ({ long, short }) => {
     return <Row>
         <Size wv='47'>
             <JusCenter>
-                <Margin value='30px 0 0 0px'>
+                <Margin value='30px 0px 0 0px'>
                     <FontsizeInp font='20'>
                         <Row>
                             <Opacity opa='50' style={{ width: '100%' }}>
@@ -33,14 +36,20 @@ const History1 = ({ long, short }) => {
                     </FontsizeInp>
 
                     <Margin value='8px 0 0 0px'>
-                        <CopyToClipboard onCopy={() => setCopyText(true)} text={'shortly.io/' + `${short}`}>
-                            <FontsizeInp font='22' style={{ cursor: 'pointer' }}>
-                                        shortly.io/{short}
-                            </FontsizeInp>
-                        </CopyToClipboard>
-                    </Margin>
-                </Margin>
+                        <FontsizeInp font='22' style={{ cursor: 'pointer' }}>
+                            <Link to={`${short}`}>
+                                http://localhost:3000/{short}
+                            </Link>
+                        </FontsizeInp>
 
+                    </Margin>
+
+                </Margin>
+                <Margin value='40px -10px 0 50px'>
+                    <CopyToClipboard onCopy={() => setCopyText(true)} text={'http://localhost:3000/' + `${short}`}>
+                        <div className=""> <img src={copy1} alt="" />хуулах</div>
+                    </CopyToClipboard>
+                </Margin>
             </JusCenter>
         </Size>
     </Row>;

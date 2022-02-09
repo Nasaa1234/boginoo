@@ -20,12 +20,11 @@ export const AuthProvider = ({ children }) => {
 
     const [userCorrect, setUserCorrect] = useState(false)
     const [signUpCorrect, setSignUpCorrect] = useState(false)
-    const [errorLogin, setErrorLogin] = useState()
-    const [signUpError, setsignUpError] = useState()
+    const [errorLogin, setErrorLogin] = useState('')
+    const [signUpError, setsignUpError] = useState('')
 
 
 
-    console.log(user)
     useEffect(() => {
         if (auth)
             auth.onAuthStateChanged((user) => {

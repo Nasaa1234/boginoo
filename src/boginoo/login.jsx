@@ -20,7 +20,6 @@ const LoginPage = () => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const { login, signUp, signOut, user, userCorrect, errorLogin } = useAuthContext()
-    console.log(userCorrect)
     if (user && user?.email) {
         navigate('/')
     }
@@ -46,7 +45,6 @@ const LoginPage = () => {
     const handleCheck = (e) => {
         setForm({ ...form, [e?.target.id]: e?.target.value })
         schema.validate(form, { abortEarly: false }).then(res => {
-            console.log(res)
             setErrors(false)
         })
             .catch(e => {
@@ -58,9 +56,7 @@ const LoginPage = () => {
     }
     const submit = () => {
         setSet(true)
-        console.log(form)
         schema.validate(form, { abortEarly: false }).then(res => {
-            console.log(res)
             setErrors(false)
         })
             .catch(e => {
@@ -70,7 +66,6 @@ const LoginPage = () => {
                 })
             })
     }
-    console.log(errors, 'error')
     return (
         <Desktop>
             <Login>
@@ -94,7 +89,7 @@ const LoginPage = () => {
                     </Input>
                     <Margin value='20px 0px -30px 40px'>
 
-                        <Color>
+                        <Color red>
                             {set ? errors.email : ''}
                         </Color>
                     </Margin>
@@ -108,10 +103,10 @@ const LoginPage = () => {
                     <Input vwInput='381px' onChange={(e) => setPassword(e.target.value), handleCheck} marginTop='1%' id='password' value={form.password} type='password' placeholder='••••••••••'>
                     </Input>
                     <Margin value='20px 0px -0px 40px'>
-                        <Color>
+                        <Color red>
                             <Size wv=''>
                                 <div className="" style={{ width: '300px' }}>
-                                    {set ? errors.password : ''} <br />
+                                    {errors ? errors.password : errorLogin ? 'Нууц үг эсвэл нэвтрэх нэр буруу байна' : ''}
                                 </div>
                             </Size>
                         </Color>
@@ -120,15 +115,17 @@ const LoginPage = () => {
                 <JusCenter>
                     <Row mttop='10%'>
                         <Row mttop='0'>
-                            <Input marginTop='-13px' type='checkbox' style={{ color: '#02B589' }}>
-                            </Input>
-                            <Margin style={{ color: '#02B589' }}>
+                            <Color>
+                                <Input marginTop='-13px' type='checkbox'></Input>
+                            </Color>
+                            <Margin> <Color>
                                 Намайг сана
+                            </Color>
                             </Margin>
                         </Row>
                         <Link to='/restart'>
                             <Margin value='0 0 0 120px'>
-                                <a href="" style={{ color: '#02B589' }}>Нууц үгээ мартсан</a>
+                                <a href=" " style={{ textDecoration: 'none' }}> <Color >Нууц үгээ мартсан </Color></a>
                             </Margin>
                         </Link>
                     </Row>
@@ -136,7 +133,7 @@ const LoginPage = () => {
                 <Button vw='383px' vh='43px' onClick={() => { login(form.email, form.password); submit() }}>Нэвтрэх</Button>
                 <Link to='/signup'>
                     <Margin value='30px 0 0px 0px'>
-                        <a href="" style={{ color: '#02B589' }}>Шинэ хэрэглэгч бол энд дарна уу?</a>
+                        <a href=""> <Color>Шинэ хэрэглэгч бол энд дарна уу?</Color></a>
                     </Margin>
                 </Link>
             </Center >

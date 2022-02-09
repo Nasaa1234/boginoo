@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 // import firebase from 'firebase';
 import { AuthContext, AuthProvider, useAuthContext } from './provider/context';
 const SignupPage = () => {
-    const { login, signUp, signOut, user, userCorrect, signUpCorrect } = useAuthContext()
+    const { login, signUp, signOut, user, userCorrect, signUpCorrect, signUpError } = useAuthContext()
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
     const [set, setSet] = useState(false)
@@ -44,7 +44,6 @@ const SignupPage = () => {
     const handleCheck = (e) => {
         setForm({ ...form, [e.target.id]: e.target.value })
         schema.validate(form, { abortEarly: false }).then(res => {
-            console.log(res)
             setErrors({})
         })
             .catch(e => {
@@ -56,9 +55,7 @@ const SignupPage = () => {
     }
     const submit = () => {
         setSet(true)
-        console.log(form)
         schema.validate(form, { abortEarly: false }).then(res => {
-            console.log(res)
             setErrors({})
         })
             .catch(e => {
@@ -70,7 +67,6 @@ const SignupPage = () => {
             })
         // setDisplayError(errors)
     }
-    console.log(errors, 'error')
     return (
         <Desktop>
             <Login>
@@ -93,7 +89,7 @@ const SignupPage = () => {
                     <Input vwInput='381px' marginTop='1%' onChange={(e) => setUsername(e.target.value), handleCheck} id='email' value={form.email} placeholder='name@mail.domain'>
                     </Input>
                     <Margin value='20px 0px -30px 40px '>
-                        <Color>
+                        <Color red>
                             {set ? errors.email : ''}
                         </Color>
                     </Margin>
@@ -105,10 +101,10 @@ const SignupPage = () => {
                     </Margin>
                     <Input vwInput='381px' marginTop='1%' onChange={(e) => setPassword(e.target.value), handleCheck} id='password' value={form.password} type='password' placeholder='••••••••••'  >
                     </Input>
-                    <Margin value='20px 0px -30px 40px '>
+                    <Margin value='20px 0px 0px 40px '>
                         <Color red>
                             <div className="" style={{ width: '300px' }}>
-                                {set ? errors.password : ''} <br />
+                                {errors ? errors.password : signUpError ? 'Нууц үг эсвэл нэвтрэх нэр буруу байна' : ''}
                             </div>
                         </Color>
                     </Margin>

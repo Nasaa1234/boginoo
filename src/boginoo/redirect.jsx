@@ -6,7 +6,6 @@ import Loading from './loading'
 const Redirect = () => {
     const location = useLocation();
     const { data: urls, createDoc: addUrl } = useCollection('allUrls')
-    console.log(location.pathname);
     const { login, signUp, signOut, user, userCorrect } = useAuthContext()
     const { firestore } = useFirebase()
     const [data, setdata] = useState([])
@@ -15,7 +14,6 @@ const Redirect = () => {
             setdata(urls)
         }
     }, [urls])
-    console.log(data)
     return <div>
         {data.map((el) => {
             if ('/' + el.id === location.pathname) {

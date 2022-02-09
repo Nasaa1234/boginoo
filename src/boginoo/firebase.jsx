@@ -53,23 +53,17 @@ export const useCollection = (path) => {
     const createDoc = (docId, data) => {
         firestore.collection(path).doc(docId).set({
             ...data
-        }).then(() => console.log('amjilttai'))
+        })
     }
 
     const uptadeDoc = (docId, data) => {
-        firestore.collection(path).doc(docId).update(data).then(() => console.log('amjilttai'))
+        firestore.collection(path).doc(docId).update(data)
     }
 
     const deleteDoc = (docId) => {
-        console.log(path)
-        firestore.collection(path).doc(docId).delete().then(() => {
-            console.log("Document successfully deleted!");
-        }).catch((error) => console.log(error, 'aldaaa!!!'))
-
-
-
+        firestore.collection(path).doc(docId).delete()
     }
 
-    
+
     return { data, createDoc, deleteDoc, uptadeDoc }
 }

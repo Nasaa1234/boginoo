@@ -1,6 +1,6 @@
 import {
     Button, Text, Desktop, Row, Login, Center, Input,
-    Col, Footer, Opacity, Margin, JusCenter, Pos
+    Col, Footer, Opacity, Margin, JusCenter, Pos, Color
 }
     from '../styled-component/button'
 import React, { useContext, useState } from 'react'
@@ -12,11 +12,52 @@ import center from './center.svg'
 import right from './right.svg'
 import { add } from 'lodash';
 import { AuthContext } from './provider/context';
-
+import * as _ from 'lodash'
+import * as yup from 'yup'
 const RestartPage = () => {
 
-    const {forgetPass} = useContext(AuthContext)
-    const [email, setEmail ] = useState()
+    const { forgetPass } = useContext(AuthContext)
+    const [email, setEmail] = useState()
+    const [set, setSet] = useState()
+
+    const [form, setForm] = useState({
+        email: '',
+    })
+    const [errors, setErrors] = useState({
+        email: '',
+    });
+
+
+    let schema = yup.object().shape({
+        email: yup.string().email().required(),
+    });
+
+
+    const handleCheck = (e) => {
+        setForm({ ...form, [e?.target.id]: e?.target.value })
+        schema.validate(form, { abortEarly: false }).then(res => {
+            setErrors(false)
+        })
+            .catch(e => {
+                setErrors({
+                    email: e?.errors?.filter(el => el?.includes('email')).join('\n'),
+                })
+            })
+    }
+    const submit = () => {
+        setSet(true)
+        schema.validate(form, { abortEarly: false }).then(res => {
+            setErrors(false)
+            setSet(false)
+
+        }).catch(e => {
+            console.log(e)
+            setErrors({
+                email: e?.errors?.filter(el => el?.includes('email')).join('\n'),
+            })
+        })
+
+    }
     return (
         <Desktop>
             <Login>
@@ -44,18 +85,23 @@ const RestartPage = () => {
                     <Margin value='0 0 0px 20px '>
                         Цахим хаяг
                     </Margin>
-                    <Input vwInput='381px' marginTop='1%'  onChange={(e) => setEmail(e.target.value)} placeholder='name@mail.domain'>
+                    <Input vwInput='381px' marginTop='1%' onChange={(e) => setEmail(e.target.value), handleCheck} id='email' placeholder='name@mail.domain'>
                     </Input>
+                    <Margin value='20px 0px 0px 100px'>
+
+                        {errors ? <Color red>{errors.email}  </Color> : <Color green>амжилттай</Color>}
+
+                    </Margin>
                 </Col>
                 <Margin value='30px 0 0px 0px '>
-                    <Button vw='383px' onClick={() => forgetPass(email)} vh='43px'>Илгээх</Button>
+                    <Button vw='383px' onClick={() => forgetPass(email), submit} vh='43px'>Илгээх</Button>
                 </Margin>
             </Center>
             <Footer>
                 <Pos>
                     <Col >
                         Made with ♥️ by Nest Academy
-                        <Opacity  opa='30'>
+                        <Opacity opa='30'>
                             ©boginoo.io 2020
                         </Opacity>
                     </Col>
